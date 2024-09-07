@@ -7,7 +7,8 @@ export default tseslint.config(
     {
         rules: {
             semi: 'error',
-            indent: ['error', 4]
+            indent: ['error', 4],
+            '@typescript-eslint/no-explicit-any': 'off'
         },
         ignores: ['**/jest.config.js']
     },

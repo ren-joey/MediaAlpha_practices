@@ -4,8 +4,8 @@
 `Perl v5.34.1`
 
 ## Add Test Case
-If you would like add any new password as a test case,
-you can append it into file `passwords`.
+If you would like to add any new password as a test case,
+you can append it into the file `passwords`.
 Each line represents a password test case.
 ```
 123

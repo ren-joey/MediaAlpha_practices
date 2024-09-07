@@ -3,6 +3,6 @@ import parenthesesRemoval from '../src/index';
 
 describe('test', () => {
     test('case 1', () => {
-        expect(parenthesesRemoval()).toBe(0);
+        expect(parenthesesRemoval('123')).toBe(0);
     });
 });

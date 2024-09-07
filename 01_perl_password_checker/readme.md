@@ -1,4 +1,4 @@
-# About The Checker
+# About The Password Checker
 
 ## Versions
 `Perl v5.34.1`

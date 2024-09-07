@@ -3,6 +3,7 @@
         "tseslint",
         "tsbuildinfo",
         "codepaths",
-        "tseslint"
+        "tseslint",
+        "VLSI"
     ]
 }

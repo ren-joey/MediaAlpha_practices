@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import parenthesisRemoval from '../src/index';
+import parenthesisRemoval from '../src';
 
 describe(`
 Parenthesis removal function. Given a string containing an expression, return the expression with unnecessary parenthesis removed.

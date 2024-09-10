@@ -8,7 +8,7 @@
 
 
 ## Option 1: Use Docker
-If you don't want to change your current environment. You may use docker to run the code.
+If you don't want to change your current environment, you may use docker to run the code.
 
 
 ### STEP 1: Add Testing Cases (Optional)
@@ -34,14 +34,17 @@ const testCases = [
     ...
 ];
 ```
+Where the `first element` represents the mathematical expression `with redundant parenthesis`, and the `second element` is the same expression with the `accurate parenthesis`.
 
 ### STEP 2: Build & Run The Image
 Before you enter the commands, make sure that you are at the root directory of this project, which is where the `dockerfile` located.
 ```bash
+# Build a image named "hw"
 docker build -t hw .
+# Run a contained also named "hw" from the image
 docker run -d --name hw hw tail -f /dev/null
 ```
-the log into the container terminal:
+Next, log into the container terminal by:
 ```bash
 docker exec -it hw bash
 ```
@@ -58,13 +61,16 @@ npm test --prefix 02_parenthesis_removal/
 
 ### STEP 4: Remove The Image and The Container
 You can exit the container terminal by:
-```
+```bash
 exit
 ```
 Then stop and remove the container, so as the image:
-```
+```bash
+# Stop the container "hw"
 docker stop hw
+# Remove the container "hw"
 docker rm hw
+# Remove the image "hw"
 docker rmi hw
 ```
 

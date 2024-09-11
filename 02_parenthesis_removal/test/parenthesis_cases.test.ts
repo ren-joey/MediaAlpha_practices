@@ -25,7 +25,10 @@ Please write a function that removes unnecessary parenthesis for any given strin
         [
             '(((((((((((((x+(y+z))))))))))))))+(t+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w))',
             'x+y+z+t+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w'
-        ]
+        ],
+        ['-(2)-(2+3)', '-2-(2+3)'],
+        ['2*(3/5)', '2*3/5'],
+        ['2/(3)', '2/3']
     ];
 
     testCases.forEach((c, idx) => {

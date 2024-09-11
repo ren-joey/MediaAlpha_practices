@@ -17,6 +17,18 @@ sub PassMsg
     print "[Valid] This password can be used. ($_[0])\n" ;
 }
 
+# Print the invalid message
+sub InvalidMsg
+{
+    print "[Invalid] Password does not meet the requirements. ($_[0])\n"
+}
+
+# Check if the password contains both uppercase and lowercase
+sub AllInOneCheck
+{
+    return $_[0] =~ /^(((?=.{8})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*)|((?=.{12})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*)|((?=.{16})(?=.*[A-Z])(?=.*[a-z]).*)|((?=.{20}).*))$/;
+}
+
 # Check if the password contains both uppercase and lowercase
 sub CaseCheck
 {
@@ -41,41 +53,9 @@ sub PasswordChecker
     my $pwd = $_[0];
     $len = length($pwd);
 
-    # Passwords must be at least 8 characters long.
-    if ($len < 8)
-    {
-        print "[Invalid] The length of password should be greater or equal to 8. ($pwd)\n";
-    }
-
-    # Between 8-11: requires mixed case letters, numbers and symbols
-    elsif ($len >= 8 && $len <= 11)
-    {
-        $pass = CaseCheck($pwd) && NumberCheck($pwd) && SymbolCheck($pwd);
-        if ($pass) { PassMsg($pwd); }
-        else { print "[Invalid] Password requires mixed case letters, numbers and symbols. ($pwd)\n" }
-    }
-
-    # Between 12-15: requires mixed case letters and numbers
-    elsif ($len >= 12 && $len <= 15)
-    {
-        $pass = CaseCheck($pwd) && NumberCheck($pwd);
-        if ($pass) { PassMsg($pwd); }
-        else { print "[Invalid] Password requires mixed case letters, numbers. ($pwd)\n" }
-    }
-
-    # Between 16-19: requires mixed case letters
-    elsif ($len >= 16 && $len <= 19)
-    {
-        $pass = CaseCheck($pwd);
-        if ($pass) { PassMsg($pwd); }
-        else { print "[Invalid] Password requires mixed case letters. ($pwd)\n" }
-    }
-
-    # 20+: any characters desired
-    else
-    {
-        PassMsg($pwd);
-    }
+    $pass = AllInOneCheck($pwd);
+    if ($pass) { PassMsg($pwd); }
+    else { InvalidMsg($pwd); }
 }
 
 # Get file location by relative path

@@ -26,28 +26,15 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
 
     let operators: number[] = [];
     let operands: number[] = [];
-    let leadingOperator = true;
 
     for (let i = 0; i < s.length; i += 1 ) {
         const c = s[i];
         if(c !== '(' && c !== ')') {
             if (c === '+' || c === '-' || c === '*' || c === '/') {
 
-                // If there is a operator and still the first operator
-                if (operators.length === 1 && leadingOperator) {
-                    leadingOperator = false;
-
-                    // Check if the operator is "-" and are there already have operands
-                    if (s[operators[0]] === '-' && operands.length > 0) {
-                        negativeNumbers.push([operators[0], operands[operands.length - 1]]);
-                    }
-                    operands = [];
-                    operators = [i];
-                }
-
                 // If there are 2 operators along with some operands
                 // assume the second operator will definitely is '-'
-                else if (operands.length > 0 && operators.length >= 2) {
+                if (operands.length > 0 && operators.length >= 2) {
                     negativeNumbers.push([operators[1], operands[operands.length - 1]]);
                     operands = [];
                     operators = [i];
@@ -62,23 +49,22 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
 
             // Push any operands directly
             } else {
-                leadingOperator = false;
                 operands.push(i);
             }
         }
     }
 
+    // Append the remained negative operands into array
     if (operands.length > 0 && operators.length >= 2) {
         negativeNumbers.push([operators[1], operands[operands.length - 1]]);
     }
 
+    // Replace all negative operands into "_" (except the first one)
     for (let i = negativeNumbers.length - 1; i >= 0; i -= 1) {
         const nums = negativeNumbers[i];
         list.unshift(s.substring(nums[0], nums[nums.length - 1] + 1));
         s = replaceRange(s, nums[0], nums[nums.length - 1] + 1, '_');
     }
-
-    console.log(s);
 
     return [s, list];
 };
@@ -93,7 +79,11 @@ const parenthesisRemoval = (s: string): string => {
     for (let i = 0; i < len; i += 1) {
         const c = expression[i];
         if (/[a-zA-Z]/.test(c)) continue;
+
+        // If the character is ")"
         if (c === ')') {
+
+            // start check the characters in the stack
             if (expression[stack[stack.length - 1]] === '(') {
                 del[i] = 1;
                 del[stack.pop() as number] = 1;
@@ -101,11 +91,14 @@ const parenthesisRemoval = (s: string): string => {
                 let addSub = false;
                 let hasOperator = false;
                 let innerPrior = false;
+
+                // Keep popping the elements, until it meets a "("
+                // Which means all popped elements are at the same level
                 while (expression[stack[stack.length - 1]] !== '(') {
                     const d = expression[stack.pop() as number];
                     operators.pop();
                     if (d !== '*' && d !== '/') addSub = true;
-                    else { innerPrior = true; }
+                    else { innerPrior = true; } // Add a priority cache
                     if (d === '+' || d === '-' || d === '*' || d === '/') hasOperator = true;
                 }
 
@@ -118,8 +111,10 @@ const parenthesisRemoval = (s: string): string => {
 
                 const d = expression[operators[operators.length - 1]];
                 if (
+                    // Check if the operator priority outside the parenthesis is lower then the operator inside the parenthesis
                     (d === '+' || ((d === '*' || d === '-' || d === '/') && !addSub))
                     || ((d === '*' || d === '/') && innerPrior && addSub)
+                    // If there is no any operator inside the parenthesis
                     || !hasOperator
                 ) {
                     del[i] = 1;

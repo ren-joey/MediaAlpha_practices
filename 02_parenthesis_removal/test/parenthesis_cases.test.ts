@@ -34,7 +34,7 @@ Please write a function that removes unnecessary parenthesis for any given strin
             '(((((((((((((-x*(y+z))))))))))))))+(t+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w)+(v+w-(-876*(-954+(-954))))+(v+w)+(v+w)+(v+w))',
             '-x*(y+z)+t+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w+v+w-(-876*(-954+(-954)))+v+w+v+w+v+w'
         ],
-        // ['-(2)-(2+3)', '-2-(2+3)'],
+        ['-(2)-(2+3)', '-2-(2+3)'],
         ['2*(3/5)', '2*3/5'],
         ['(2*3)/5', '2*3/5'],
         ['-B+((-A)*9)+((2*3)/(5*8))', '-B+(-A)*9+2*3/5*8'],
@@ -42,7 +42,8 @@ Please write a function that removes unnecessary parenthesis for any given strin
         ['2/(3)', '2/3'],
         ['1+(-1)+((-16)+((-18)*(-20)))', '1+(-1)+(-16)+(-18)*(-20)'],
         ['1+(-1)', '1+(-1)'],
-        ['A+(-1)', 'A+(-1)']
+        ['A+(-1)', 'A+(-1)'],
+        ['-(-5)', '-(-5)']
     ];
 
     testCases.forEach((c, idx) => {

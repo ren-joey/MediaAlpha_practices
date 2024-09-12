@@ -29,24 +29,6 @@ sub AllInOneCheck
     return $_[0] =~ /^(((?=.{8})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*)|((?=.{12})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*)|((?=.{16})(?=.*[A-Z])(?=.*[a-z]).*)|((?=.{20}).*))$/;
 }
 
-# Check if the password contains both uppercase and lowercase
-sub CaseCheck
-{
-    return $_[0] =~ /^(?=.*[A-Z])(?=.*[a-z]).*$/;
-}
-
-# Check if the password contains any number
-sub NumberCheck
-{
-    return $_[0] =~ /^(?=.*[0-9]).*$/;
-}
-
-# Check if the password contains any special symbal
-sub SymbolCheck
-{
-    return $_[0] =~ /^(?=.*\W).*$/;
-}
-
 # Main function for password validation
 sub PasswordChecker
 {

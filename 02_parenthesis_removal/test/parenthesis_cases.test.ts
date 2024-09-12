@@ -19,6 +19,10 @@ Please write a function that removes unnecessary parenthesis for any given strin
         ['A+B', 'A+B'],
         ['A+(B+(C))', 'A+B+C'],
         ['(A*(B+C))', 'A*(B+C)'],
+        ['(A*(-B+C))', 'A*(-B+C)'],
+        ['(A/(-B+C))', 'A/(-B+C)'],
+        ['(A/((-B)*C))', 'A/(-B)*C'],
+        ['(A*((-B)/C))', 'A*(-B)/C'],
         ['1*(2+(3*(4+5)))', '1*(2+3*(4+5))'],
         ['x+(y+z)+(t+(v+w))', 'x+y+z+t+v+w'],
         ['x*(12+(16+y))', 'x*(12+16+y)'],
@@ -28,7 +32,9 @@ Please write a function that removes unnecessary parenthesis for any given strin
         ],
         ['-(2)-(2+3)', '-2-(2+3)'],
         ['2*(3/5)', '2*3/5'],
-        ['2/(3)', '2/3']
+        ['2/(3)', '2/3'],
+        ['1+(-1)+((-16)+((-18)*(-20)))', '1+(-1)+(-16)+(-18)*(-20)'],
+        ['1+(-1)', '1+(-1)']
     ];
 
     testCases.forEach((c, idx) => {

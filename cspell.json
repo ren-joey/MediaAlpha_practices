@@ -4,6 +4,7 @@
         "tsbuildinfo",
         "codepaths",
         "tseslint",
-        "VLSI"
+        "VLSI",
+        "nums"
     ]
 }

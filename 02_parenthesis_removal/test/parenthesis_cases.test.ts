@@ -10,7 +10,7 @@ const getOperator = (): string => {
     return '/';
 };
 
-const getOperand = (): string => {
+const getOperand = (max: number): string => {
     let res = '';
     // const nOrA = Math.round(Math.random());
     const nOrA = true;
@@ -26,7 +26,7 @@ const getOperand = (): string => {
         res = String.fromCharCode(charCode);
     }
     else {
-        res = Math.round(Math.random() * 10).toString();
+        res = Math.floor(Math.random() * max).toString();
     }
 
     if (negative) {
@@ -85,7 +85,11 @@ Please write a function that removes unnecessary parenthesis for any given strin
         ['1+(-1)', '1+(-1)'],
         ['A+(-1)', 'A+(-1)'],
         ['(6-4)*(-8)', '(6-4)*(-8)'],
-        ['((((-9)-3*2)*(-8)+6+1+6)*9)*3', '((-9-3*2)*(-8)+6+1+6)*9*3']
+        ['((2*((2+3)-(4*6))+(8+(7*4))))', '2*(2+3-4*6)+8+7*4'],
+        ['((((-9)-3*2)*(-8)+6+1+6)*9)*3', '((-9-3*2)*(-8)+6+1+6)*9*3'],
+        ['(C*E)/A', 'C*E/A'],
+        ['-A-(B*(C-D-E))', '-A-B*(C-D-E)'],
+        ['A-(B/C-D+(E-(F-G/H/I*J+((K+((L/M*N*O+P-((Q*((R-S-T*(U/((V-W/(X/Y/Z)))))))))))))))', 'A-(B/C-D+E-(F-G/H/I*J+K+L/M*N*O+P-Q*(R-S-T*U/(V-W/X/Y/Z))))']
     ];
 
     testCases.forEach((c, idx) => {
@@ -94,14 +98,14 @@ Please write a function that removes unnecessary parenthesis for any given strin
         });
     });
 
-    const testCaseGenerator = (n: number) => {
+    const testCaseGenerator = (times: number, operators: number, max_operand: number) => {
 
-        for (let i = 0; i < n; i += 1) {
-            const operators = Math.round(Math.random() * 10);
-            let exp = getOperand();
+        for (let i = 0; i < times; i += 1) {
+            const os = Math.round(Math.random() * operators);
+            let exp = getOperand(max_operand);
 
-            for (let j = 0; j < operators; j += 1) {
-                exp = exp + getOperator() + getOperand();
+            for (let j = 0; j < os; j += 1) {
+                exp = exp + getOperator() + getOperand(max_operand);
                 if (Math.round(Math.random())) {
                     exp = '(' + exp + ')';
                 }
@@ -116,7 +120,10 @@ Please write a function that removes unnecessary parenthesis for any given strin
         }
     };
 
-    testCaseGenerator(1000);
+    testCaseGenerator(1000, 30, 100);
+    // testCaseGenerator(1000, 100, 100);
+    // testCaseGenerator(1000, 1000, 1000);
+    // testCaseGenerator(1000, 10000, 10000);
 });
 
 

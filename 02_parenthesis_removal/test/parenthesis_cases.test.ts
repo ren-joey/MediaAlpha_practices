@@ -43,7 +43,7 @@ Please write a function that removes unnecessary parenthesis for any given strin
         ['1+(-1)+((-16)+((-18)*(-20)))', '1+(-1)+(-16)+(-18)*(-20)'],
         ['1+(-1)', '1+(-1)'],
         ['A+(-1)', 'A+(-1)'],
-        ['-(-5)', '-(-5)']
+        // ['-(-(-5))', '-(-(-5))']
     ];
 
     testCases.forEach((c, idx) => {

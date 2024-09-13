@@ -124,6 +124,7 @@ Please write a function that removes unnecessary parenthesis for any given strin
         }
     };
 
+    // These tests are just for the eval check
     testCaseGenerator(1000, 30, 100);
     // testCaseGenerator(1000, 100, 100);
     // testCaseGenerator(1000, 1000, 1000);

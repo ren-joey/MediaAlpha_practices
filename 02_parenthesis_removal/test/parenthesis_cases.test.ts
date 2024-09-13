@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-// import { parenthesisRemoval } from '../src';
+// import { parenthesisRemoval } from '../src/solution1';
 import { parenthesisRemoval } from '../src/solution2';
 
 const getOperator = (): string => {

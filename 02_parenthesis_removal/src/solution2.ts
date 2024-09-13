@@ -43,7 +43,7 @@ const checkInside = (arr: any[], parent: string|undefined, side?: 'left'|'right'
 
 const parenthesisRemoval = (exp: string): string => {
     const [s, list] = algebraReplace(exp);
-    const [arr, _] = convertToArr(s, 0);
+    const [arr, _] = convertToArr(s, 0); // eslint-disable-line @typescript-eslint/no-unused-vars
     let ans = checkInside(arr, '');
     ans = algebraRecovery(ans, list);
 

@@ -26,7 +26,20 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
                 // If there are 2 operators along with some operands
                 // assume the second operator will definitely is '-'
                 if (operands.length > 0 && operators.length >= 2) {
-                    negativeNumbers.push([operators[1], operands[operands.length - 1]]);
+                    const substr = s.substring(operators[1], operands[operands.length - 1] + 1);
+
+                    // Dealing with the -(N) case
+                    const count: number = [...substr].reduce((sum, c) => {
+                        if (c === '(') return sum + 1;
+                        else if (c === ')') return sum - 1;
+                        return sum;
+                    }, 0);
+                    negativeNumbers.push(
+                        [
+                            operators[1],
+                            operands[operands.length - 1] + count
+                        ]
+                    );
                     operands = [];
                     operators = [i];
 
@@ -53,7 +66,11 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
     // Replace all negative operands into "_" (except the first one)
     for (let i = negativeNumbers.length - 1; i >= 0; i -= 1) {
         const nums = negativeNumbers[i];
-        list.unshift(s.substring(nums[0], nums[nums.length - 1] + 1));
+        let substr = s.substring(nums[0], nums[nums.length - 1] + 1);
+
+        // Remove the parenthesis in -(N) directly
+        substr = substr.replaceAll(/[()]/g, '');
+        list.unshift(substr);
         s = replaceRange(s, nums[0], nums[nums.length - 1] + 1, '_');
     }
 

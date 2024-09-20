@@ -27,3 +27,4 @@
 |`/`|`(-3-4)/(-5-6)`|`(-3-4)/(-5-6)`| with `-` unremovable
 |`/`|`(-3*-4)/(-5*-6)`|`-3*-4/(-5*-6)`| with `*` left-sided removable
 |`/`|`(-3/-4)/(-5/-6)`|`-3/-4/(-5/-6)`| with `/` left-sided removable
+The `removable` means that after parenthesis removal, the results from `eval()` function are the same.

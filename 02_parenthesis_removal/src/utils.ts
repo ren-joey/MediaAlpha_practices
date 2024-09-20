@@ -68,7 +68,7 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
         if(c !== '(' && c !== ')') {
             if (c === ' ') continue;
             if (c === '+' || c === '-' || c === '*' || c === '/') {
-                if (firstDetect && operators.length === 1 && s[operators[0]] === '-') {
+                if (firstDetect && operators.length === 1 && s[operators[0]] === '-' && operands.length > 0) {
                     if (firstDetect) firstDetect = false;
 
                     const substr = s.substring(operators[0], operands[operands.length - 1] + 1);
@@ -80,6 +80,21 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
                         return sum;
                     }, 0);
 
+                    const nextNonSpaceIdx = nextNonSpace(s, operands[operands.length - 1], count);
+                    let earlyStop = false;
+                    if (count !== 0) {
+                        for (let i = operands[operands.length - 1] + 1; i <= nextNonSpaceIdx; i += 1) {
+                            const c = s[i];
+                            if (c !== ')') {
+                                earlyStop = true;
+                                operands = [];
+                                operators = [i];
+                                continue;
+                            }
+                        }
+                    }
+                    if (earlyStop) continue;
+
                     negativeNumbers.push(
                         [
                             operators[0],
@@ -88,12 +103,13 @@ const algebraReplace = (s: string): [expression: string, list: string[]] => {
                                 : nextNonSpace(s, operands[operands.length - 1], count)
                         ]
                     );
+
                     operands = [];
                     operators = [i];
                 }
 
                 // If there are 2 operators along with some operands
-                // assume the second operator will definitely is '-'
+                // assume the second operator will definitely be '-'
                 else if (operands.length > 0 && operators.length >= 2) {
                     if (firstDetect) firstDetect = false;
 

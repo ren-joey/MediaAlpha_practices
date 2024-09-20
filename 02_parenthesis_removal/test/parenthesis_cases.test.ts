@@ -38,6 +38,28 @@ const getOperand = (max: number): string => {
     return res;
 };
 
+const testCaseGenerator = (times: number, operators: number, max_operand: number) => {
+
+    for (let i = 0; i < times; i += 1) {
+        const os = Math.round(Math.random() * operators);
+        let exp = getOperand(max_operand);
+
+        for (let j = 0; j < os; j += 1) {
+            exp = exp + getOperator() + getOperand(max_operand);
+            if (Math.round(Math.random())) {
+                exp = '(' + exp + ')';
+            }
+        }
+
+        const removed = parenthesisRemoval(exp);
+        test(`case ${i+1}: ${exp} => ${removed}`, () => {
+            const before = eval(exp);
+            const after = eval(removed);
+            expect(before).toBe(after);
+        });
+    }
+};
+
 describe(`
 Parenthesis removal function. Given a string containing an expression, return the expression with unnecessary parenthesis removed.
 
@@ -51,7 +73,16 @@ Please write a function that removes unnecessary parenthesis for any given strin
 
     // You can append expression test cases here
     const testCases = [
+        ['-(2+3)', '-(2+3)'],
+        ['-(((((((((-1+(-5))))))))))', '-(-1+(-5))'],
+        ['-((((((((((-1)+(-5))))))))))', '-(-1+(-5))'],
+        [' -   (((((((((( - 1 ) + ( - 5 ))))))))))', ' -   ( - 1  + ( - 5 ))'],
         ['(2 + 2) * 1', '(2 + 2) * 1'],
+        ['1+(  - 1  )', '1+(  - 1  )'],
+        ['   1   -   (  - 1  )', '   1   -   (  - 1  )'],
+        ['     A     -     (     -     1     )     ', '     A     -     (     -     1     )     '],
+        ['   1   *   (  - 1  )', '   1   *     - 1  '],
+        ['     A     /     (     -     1     )     ', '     A     /          -     1          '],
         ['', ''],
         ['1', '1'],
         ['(1)', '1'],
@@ -119,11 +150,6 @@ Please write a function that removes unnecessary parenthesis for any given strin
         ['2*(3*(5*(7/8))/6)', '2*3*5*7/8/6'],
         ['1+(-1)+((-16)+((-18)*(-20)))', '1+(-1)+(-16+(-18*-20))'],
         ['1+(-1)', '1+(-1)'],
-        ['1+(  - 1  )', '1+(  - 1  )'],
-        ['   1   -   (  - 1  )', '   1   -   (  - 1  )'],
-        ['     A     -     (     -     1     )     ', '     A     -     (     -     1     )     '],
-        ['   1   *   (  - 1  )', '   1   *     - 1  '],
-        ['     A     /     (     -     1     )     ', '     A     /          -     1          '],
         ['(6-4)*(-8)', '(6-4)*-8'],
         ['((2*((2+3)-(4*6))+(8+(7*4))))', '2*(2+3-4*6)+8+7*4'],
         ['((((-9)-3*2)*(-8)+6+1+6)*9)*3', '((-9-3*2)*-8+6+1+6)*9*3'],
@@ -139,30 +165,8 @@ Please write a function that removes unnecessary parenthesis for any given strin
         });
     });
 
-    const testCaseGenerator = (times: number, operators: number, max_operand: number) => {
-
-        for (let i = 0; i < times; i += 1) {
-            const os = Math.round(Math.random() * operators);
-            let exp = getOperand(max_operand);
-
-            for (let j = 0; j < os; j += 1) {
-                exp = exp + getOperator() + getOperand(max_operand);
-                if (Math.round(Math.random())) {
-                    exp = '(' + exp + ')';
-                }
-            }
-
-            const removed = parenthesisRemoval(exp);
-            test(`case ${i+1}: ${exp} => ${removed}`, () => {
-                const before = eval(exp);
-                const after = eval(removed);
-                expect(before).toBe(after);
-            });
-        }
-    };
-
     // These tests are just for the eval check
-    testCaseGenerator(1000, 30, 100);
+    // testCaseGenerator(1000, 30, 100);
     // testCaseGenerator(1000, 100, 100);
     // testCaseGenerator(1000, 1000, 1000);
     // testCaseGenerator(1000, 10000, 10000);

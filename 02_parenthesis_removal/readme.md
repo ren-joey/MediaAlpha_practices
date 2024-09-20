@@ -1,3 +1,13 @@
+# Regulations
+The mathematical expressions provided should follow the rules below:
+1. There are only positive operands, negative operands, and binary operators could appear in the expression,
+which means any operator should have two-sided operands, and the operator should appear.<br>
+For instance, valid: (-1)*10; invalid: -(10+5), a(b+7)
+2. If the + and - operators to appear continuously, they should be divided by "("
+3. When fulfilling the above, if the number of parentheses is minimum, and the math results are the same, all possible combinations are acceptable.<br>
+For example, Case: '(A/((-B)*C))' Valid: 'A/(-B*C)', 'A/(-B)*C'
+4. The input expression should maintain its parenthesis valid.
+
 # About The System Environment
 
 ## Versions

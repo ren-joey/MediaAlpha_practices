@@ -9,7 +9,7 @@
 - `/`
 
 ### Pairing Cases
-|Operand|Case|Expected|Regulations|
+|Operator|Case|Expected|Regulations|
 |-|-|-|-|
 |`+`|`(-3+4)+(-5)`|`-3+4+-5`| with `+` all removable
 |`+`|`(-3-4)+(-5-6)`|`-3-4+-5-6`| with `-` all removable
